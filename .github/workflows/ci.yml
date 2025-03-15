@@ -25,3 +25,10 @@ jobs:
 
       - name: Run Tests
         run: go test ./...
+        id: tests
+
+      - name: Notify Discord
+        run: |
+          curl -X POST https://105f-2806-10a6-e-be38-b4ef-87b0-6ee7-24b9.ngrok-free.app/webhook-actions \
+            -H "Content-Type: application/json" \
+            -d '{"workflow": "CI/CD Pipeline", "conclusion": "${{ steps.tests.outcome }}"}'
