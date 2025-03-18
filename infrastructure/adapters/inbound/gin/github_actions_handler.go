@@ -13,12 +13,13 @@ import (
 
 // GitHubActionsEvent representa el payload del webhook de GitHub Actions.
 type GitHubActionsEvent struct {
-	Action      string `json:"action"`
-	WorkflowRun struct {
-		Name       string `json:"name"`
-		Conclusion string `json:"conclusion"`
-	} `json:"workflow_run"`
+    WorkflowRun struct {
+        Name        string `json:"name"`
+        Conclusion string `json:"conclusion"`
+    } `json:"workflow_run"`
+    Action string `json:"action"`
 }
+
 
 // NewGitHubActionsWebhookHandler crea un handler para los eventos de GitHub Actions.
 func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.HandlerFunc {
@@ -30,9 +31,6 @@ func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.Ha
             return
         }
 
-        // Imprimir el cuerpo completo del payload para depuración
-        log.Println("Payload recibido:", string(body))
-
         var event GitHubActionsEvent
         if err := json.Unmarshal(body, &event); err != nil {
             log.Println("Error procesando el webhook de Actions:", err)
@@ -40,12 +38,12 @@ func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.Ha
             return
         }
 
-        log.Println("Evento procesado:", event)  // Verifica que los valores son correctos
+        log.Println("Evento procesado:", event) // Verifica los valores procesados
 
         actionsEvent := domain.ActionsEvent{
-            Workflow:   event.WorkflowRun.Name,       // Extraemos el nombre del workflow
-            Action:     event.Action,                  // Este valor ya lo tienes
-            Conclusion: event.WorkflowRun.Conclusion,  // Extraemos la conclusión
+            Workflow:   event.WorkflowRun.Name,   // Ahora accedemos a Name
+            Action:     event.Action,
+            Conclusion: event.WorkflowRun.Conclusion, // Y accedemos a Conclusion
         }
 
         if err := svc.NotifyActionsEvent(actionsEvent); err != nil {
