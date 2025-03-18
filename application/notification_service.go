@@ -1,11 +1,11 @@
 package application
 
 import (
-	"fmt"
-
+    "fmt"
     "webhook-github/domain"
-	"webhook-github/infrastructure/adapters/outbound"
+    discord "webhook-github/infrastructure/adapters/outbound"
 )
+
 
 type NotificationService struct {
 	discordNotifier discord.Notifier // Interfaz para enviar notificaciones a Discord.

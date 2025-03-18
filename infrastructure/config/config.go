@@ -1,6 +1,6 @@
 package config
 
 const (
-	DiscordWebhookURLDevelopment = "https://discordapp.com/api/webhooks/1350525055758635028/MkXR1iR30jyNNu_k7w8TPmLOl3XoTz-6e6JUVpiSaxJrcIL6RBsvJo48RZG7FyHT8Fgp"
-	DiscordWebhookURLTests       = "https://discordapp.com/api/webhooks/1350545911985737858/w0aTofWTDMHA51hKdj9sPqpdaTE63RaaNpjCOEi2d7jClC-MQ3ai-ULyj48kzdSovvRr"
+	DiscordWebhookURLDevelopment = "https://discordapp.com/api/webhooks/1350572741492998174/rWZEJF_J7og-JT4Pkb6vU3JELh0yRq47cRoP61C0AQHS26RlRxv9_NFDhNDQTDJVO547"
+	DiscordWebhookURLTests       = "https://discordapp.com/api/webhooks/1350571872042876959/9i6Fuckd0xAgDj_4Aey90aGyqJsNcBtySuJ428AEoySK0UyHaihHpJ_A3QznradTn6xS"
 )
