@@ -13,9 +13,10 @@ import (
 
 // GitHubActionsEvent representa el payload del webhook de GitHub Actions.
 type GitHubActionsEvent struct {
+    Workflow json.RawMessage `json:"workflow"` // Este campo se ignora, solo para evitar error
     WorkflowRun struct {
         Name        string `json:"name"`
-        Conclusion string `json:"conclusion"`
+        Conclusion  string `json:"conclusion"`
     } `json:"workflow_run"`
     Action string `json:"action"`
 }
@@ -30,6 +31,8 @@ func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.Ha
             c.JSON(http.StatusBadRequest, gin.H{"error": "No se pudo leer el cuerpo"})
             return
         }
+
+		log.Println("Payload recibido:", string(body))
 
         var event GitHubActionsEvent
         if err := json.Unmarshal(body, &event); err != nil {
