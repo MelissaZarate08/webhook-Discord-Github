@@ -8,17 +8,17 @@ import (
 
 
 type NotificationService struct {
-	discordNotifier discord.Notifier // Interfaz para enviar notificaciones a Discord.
+	discordNotifier discord.Notifier
 }
 
-// NewNotificationService crea una instancia del servicio de notificaciones.
+
 func NewNotificationService(notifier discord.Notifier) *NotificationService {
 	return &NotificationService{
 		discordNotifier: notifier,
 	}
 }
 
-// NotifyPullRequestEvent orquesta la notificación para un evento de Pull Request.
+
 func (s *NotificationService) NotifyPullRequestEvent(evt domain.PullRequestEvent) error {
 	var message string
 	switch evt.Action {
@@ -31,13 +31,13 @@ func (s *NotificationService) NotifyPullRequestEvent(evt domain.PullRequestEvent
 	case "closed":
 		message = fmt.Sprintf("PR cerrado o fusionado: **%s** (#%d)", evt.Title, evt.Number)
 	default:
-		return nil // Si la acción no interesa, no se notifica.
+		return nil 
 	}
 
 	return s.discordNotifier.Send(message)
 }
 
-// NotifyActionsEvent orquesta la notificación para un evento de GitHub Actions.
+
 func (s *NotificationService) NotifyActionsEvent(evt domain.ActionsEvent) error {
 	var message string
 	switch evt.Conclusion {

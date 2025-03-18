@@ -32,7 +32,6 @@ func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.Ha
             return
         }
 
-        log.Println("Payload recibido:", string(body))
 
         var event GitHubActionsEvent
         if err := json.Unmarshal(body, &event); err != nil {
@@ -41,14 +40,13 @@ func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.Ha
             return
         }
 
-        // Si workflow_run no tiene la info necesaria, ignoramos el evento.
+		
         if event.WorkflowRun.Name == "" || event.WorkflowRun.Conclusion == "" {
             log.Println("Evento ignorado por falta de datos en workflow_run")
             c.JSON(http.StatusOK, gin.H{"message": "Evento ignorado"})
             return
         }
 
-        log.Println("Evento procesado:", event)
 
         actionsEvent := domain.ActionsEvent{
             Workflow:   event.WorkflowRun.Name,

@@ -1,6 +1,6 @@
 package domain
 
-// PullRequestEvent define el evento de un Pull Request de GitHub.
+
 type PullRequestEvent struct {
 	Title  string
 	Number int
@@ -8,7 +8,7 @@ type PullRequestEvent struct {
 	Action string
 }
 
-// ActionsEvent define el evento de GitHub Actions.
+
 type ActionsEvent struct {
 	Workflow   string
 	Action     string

@@ -11,7 +11,7 @@ import (
     "webhook-github/domain"
 )
 
-// GitHubEvent representa el payload del webhook de un Pull Request.
+
 type GitHubEvent struct {
 	Action      string `json:"action"`
 	PullRequest struct {
@@ -23,7 +23,7 @@ type GitHubEvent struct {
 	} `json:"pull_request"`
 }
 
-// NewGitHubWebhookHandler crea un handler para los eventos de PR.
+
 func NewGitHubWebhookHandler(svc *application.NotificationService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		body, err := ioutil.ReadAll(c.Request.Body)

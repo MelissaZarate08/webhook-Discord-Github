@@ -9,18 +9,14 @@ import (
 	"webhook-github/infrastructure/config"
 )
 
-// Notifier define el comportamiento de cualquier notificador a Discord.
 type Notifier interface {
 	Send(message string) error
 }
 
-// DiscordNotifier implementa la interfaz Notifier.
 type DiscordNotifier struct {
 	webhookURL string
 }
 
-// NewDiscordNotifier crea un nuevo DiscordNotifier.
-// Si isTest es true, se utiliza la URL de tests; en caso contrario, la de development.
 func NewDiscordNotifier(isTest bool) *DiscordNotifier {
 	url := config.DiscordWebhookURLDevelopment
 	if isTest {
@@ -31,7 +27,6 @@ func NewDiscordNotifier(isTest bool) *DiscordNotifier {
 	}
 }
 
-// Send envía un mensaje al webhook configurado.
 func (d *DiscordNotifier) Send(message string) error {
 	data := map[string]string{"content": message}
 	jsonData, err := json.Marshal(data)
