@@ -11,9 +11,9 @@ import (
     "webhook-github/domain"
 )
 
-// GitHubActionsEvent representa el payload del webhook de GitHub Actions.
+
 type GitHubActionsEvent struct {
-    Workflow json.RawMessage `json:"workflow"` // Este campo se ignora, solo para evitar error
+    Workflow json.RawMessage `json:"workflow"`
     WorkflowRun struct {
         Name        string `json:"name"`
         Conclusion  string `json:"conclusion"`
@@ -22,7 +22,7 @@ type GitHubActionsEvent struct {
 }
 
 
-// NewGitHubActionsWebhookHandler crea un handler para los eventos de GitHub Actions.
+
 func NewGitHubActionsWebhookHandler(svc *application.NotificationService) gin.HandlerFunc {
     return func(c *gin.Context) {
         body, err := ioutil.ReadAll(c.Request.Body)
