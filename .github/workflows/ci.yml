@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Install Dependencies
+        run: go mod tidy
+
+      - name: Run Tests
+        run: go test ./...
+        id: tests
+
+      - name: Notify Discord
+        run: |
+          curl -X POST https://105f-2806-10a6-e-be38-b4ef-87b0-6ee7-24b9.ngrok-free.app/webhook-actions \
+            -H "Content-Type: application/json" \
+            -d '{"workflow": "CI/CD Pipeline", "conclusion": "${{ steps.tests.outcome }}"}'
